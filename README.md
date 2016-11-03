@@ -23,6 +23,5 @@ to the repo.
 
 ### Deploying
 
-If you use AWS S3, you can provide an aws-credentials.json, point
-`aws-upload.conf.js` to your s3 bucket and run `s3upload` to copy the
-built `dist/` directory to your bucket.
+If you use AWS S3 and you have the s3 CLI tools installed you can deploy
+with `aws s3 sync dist/ s3://bucket`
