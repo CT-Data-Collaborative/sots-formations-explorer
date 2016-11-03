@@ -14,6 +14,13 @@ directory, build/compile the angular and sass files respectively and
 will launch the a local dev server availablne at ```localhost:4444``` 
 or ```0.0.0.0:4444```.
 
+
+### Data
+
+Data files should be populated in the `src/static/data` directory. Data 
+files are copied in using an external tool and should not be committed 
+to the repo.
+
 ### Deploying
 
 If you use AWS S3, you can provide an aws-credentials.json, point
