@@ -262,7 +262,7 @@ angular.module('app')
         // Too many charts? alert the user. if they don't want to continue, reset newConfig to oldConfig and return;
         if (newConfig.type === "map" && vizCount > 12) {
             ngDialog.openConfirm({
-                template: "/static/dist/templates/dataWarning.html",
+                template: "/templates/dataWarning.html",
                 overlay: true,
                 showClose: false,
                 appendTo: "#config > div:last-child",
