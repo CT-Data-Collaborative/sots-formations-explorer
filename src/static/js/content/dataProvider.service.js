@@ -1,5 +1,5 @@
 angular.module('app')
-.service('dataProvider', ['$q', '$http', 'lodash', function($q, $http, lodash) {
+.service('dataProvider', ['$q', '$http', 'lodash', 'appConfig', function($q, $http, lodash, appConfig) {
     $http.defaults.cache = true;
 
     var dataProvider = {
@@ -46,12 +46,6 @@ angular.module('app')
         return pieces;
     }
 
-    // dataProvider.hasData = function(config) {
-    //     var pieces = dataProvider.buildPieces(config);
-    //     return pieces.every(function(piece) {
-    //             return undefined !== dataProvider.pieces[piece[0]] && undefined !== dataProvider.pieces[piece[0]][piece[1]]
-    //         })
-    // }
 
     dataProvider.getData = function(config) {
         console.log("Provider getting data!")
@@ -77,21 +71,3 @@ angular.module('app')
     return dataProvider;
 }])
 
-
-/*
-
-
-$http.get('/static/dist/data/data.json')
-    .success(function(response) {
-        dataProvider.data = response.map(function(row, rowI, rowA) {
-            row.Moment = moment([row.Year, lodash.padLeft(row.Month, "0"), "01"].join("-"), "YYYY-MM-DD")
-            return row;
-        })
-
-        resolve(dataProvider);
-    })
-    .error(function() {
-        reject("There was an error getting facets");
-    });
-
- */

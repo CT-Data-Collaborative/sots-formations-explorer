@@ -1,5 +1,5 @@
 angular.module('app')
-.directive('dateselector', [function() {
+.directive('dateselector', ['appConfig', function(appConfig) {
     return  {
         restrict: 'E',
         scope: {
@@ -23,8 +23,8 @@ angular.module('app')
                         "quarter" : {months : 3},
                         "month" : {months : 1}
                     };
-                const DATA_START = "1980-01-01",
-                    DATA_END = "2015-12-31";
+                const DATA_START = appConfig.startData,
+                    DATA_END = appConfig.endData;
 
                 // generate options
                 scope.options = [];

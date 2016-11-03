@@ -1,6 +1,6 @@
 angular.module('app')
-.controller('CompareTownsController', ['$scope', '$loading', '$anchorScroll', 'ngDialog', 'lodash', 'dataProvider', 'dataProcessor',
-    function($scope, $loading, $anchorScroll, ngDialog, lodash, dataProvider, dataProcessor) {
+.controller('CompareTownsController', ['$scope', '$loading', '$anchorScroll', 'ngDialog', 'lodash', 'dataProvider', 'dataProcessor', 'appConfig',
+    function($scope, $loading, $anchorScroll, ngDialog, lodash, dataProvider, dataProcessor, appConfig) {
     $loading.setDefaultOptions(
         {
             text: 'Loading Data . . .', // Display text
@@ -19,16 +19,19 @@ angular.module('app')
         }
     );
 
+    const DATA_START = moment(appConfig.startData, "YYYY-MM-DD"),
+            DATA_END = moment(appConfig.endDate, "YYYY-MM-DD");
+    console.log(DATA_START);
     $scope.collapsed = {
         "metadata" : true
-    }
+    };
 
     $scope.data = [];
 
     $scope.config = {
         "time" : "year", // year, quarter
-        "start" : "1980", // a year between 1980 and 2015 inclusive
-        "end" : "2015", // a year between 1980 and 2015 inclusive
+        "start" : String(moment(appConfig.startData).year()), // a year between 1980 and 2015 inclusive
+        "end" : String(moment(appConfig.endData).year()), // a year between 1980 and 2015 inclusive
         "submit" : false, // a flag for submit button click
         "towns" : {
             "base" : null,
@@ -37,64 +40,9 @@ angular.module('app')
         "structures" : []
     };
 
-    $scope.structures = [
-        {
-            "label" : "All Business Entities",
-            "value" : "All Business Entities"
-        },
-        {
-            "label" : "LLC (CT)",
-            "value" : "LLC (CT)"
-        },
-        {
-            "label" : "LLC (Non-CT)",
-            "value" : "LLC (Non-CT)"
-        },
-        {
-            "label" : "Stock Corporation (CT)",
-            "value" : "Stock Corporation (CT)"
-        },
-        {
-            "label" : "Stock Corporation (Non-CT)",
-            "value" : "Stock Corporation (Non-CT)"
-        },
-        {
-            "label" : "Nonstock Corporation (CT)",
-            "value" : "Nonstock Corporation (CT)"
-        },
-        {
-            "label" : "Nonstock Corporation (Non-CT)",
-            "value" : "Nonstock Corporation (Non-CT)"
-        },
-        {
-            "label" : "LP (CT)",
-            "value" : "LP (CT)"
-        },
-        {
-            "label" : "LP (Non-CT)",
-            "value" : "LP (Non-CT)"
-        },
-        {
-            "label" : "Statutory Trust (CT)",
-            "value" : "Statutory Trust (CT)"
-        },
-        {
-            "label" : "Statutory Trust (Non-CT)",
-            "value" : "Statutory Trust (Non-CT)"
-        },
-        {
-            "label" : "General Partnership",
-            "value" : "General Partnership"
-        },
-        {
-            "label" : "Other",
-            "value" : "Other"
-        },
-        {
-            "label" : "Benefit Corp.",
-            "value" : "Benefit Corp."
-        }
-    ];
+        $scope.structures = appConfig.structureOrder.map(function(s) {
+            return {"label": s, "value": s}
+        });
 
     $scope.configOptions = [
         {

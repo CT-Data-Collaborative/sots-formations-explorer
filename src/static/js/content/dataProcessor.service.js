@@ -1,9 +1,10 @@
 angular.module('app')
-.service('dataProcessor', ['$q', '$http', 'lodash', function($q, $http, lodash) {
+.service('dataProcessor', ['$q', '$http', 'lodash', 'appConfig', function($q, $http, lodash, appConfig) {
     var dataProcessor = {
         data : null
     };
 
+    console.log(appConfig);
     dataProcessor.processMyTown = function(SOURCE_DATA, SOURCE_CONFIG) {
 
         console.log("Processor parsing data - MyTown!")
@@ -34,41 +35,12 @@ angular.module('app')
             "year" : {years : 1},
             "quarter" : {months : 3}
         };
-        const DATA_START = moment("1980-01-01", "YYYY-MM-DD"),
-            DATA_END = moment("2015-12-31", "YYYY-MM-DD");
-        
-        var structureOrder = [
-            "All Business Entities",
-            "LLC (CT)",
-            "LLC (Non-CT)",
-            "Stock Corporation (CT)",
-            "Stock Corporation (Non-CT)",
-            "Nonstock Corporation (CT)",
-            "Nonstock Corporation (Non-CT)",
-            "LP (CT)",
-            "LP (Non-CT)",
-            "Statutory Trust (CT)",
-            "Statutory Trust (Non-CT)",
-            "General Partnership",
-            "Other",
-            "Benefit Corp."
-        ];
+        const DATA_START = moment(appConfig.startData, "YYYY-MM-DD"),
+            DATA_END = moment(appConfig.endData, "YYYY-MM-DD");
 
-        // i know i know, there's no better way to do this
-        const MONTHS = [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-        ];
+        var structureOrder = appConfig.structureOrder;
+
+        const MONTHS = appConfig.months;
 
         // augment configs so they can just be fed into the following code as-is
         // time
@@ -260,42 +232,11 @@ angular.module('app')
             "quarter" : {months : 3},
             "month" : {months : 1}
         };
-        const DATA_START = moment("1980-01-01", "YYYY-MM-DD"),
-            DATA_END = moment("2015-12-31", "YYYY-MM-DD");
-        
-        var structureOrder = [
-            "All Business Entities",
-            "LLC (CT)",
-            "LLC (Non-CT)",
-            "Stock Corporation (CT)",
-            "Stock Corporation (Non-CT)",
-            "Nonstock Corporation (CT)",
-            "Nonstock Corporation (Non-CT)",
-            "LP (CT)",
-            "LP (Non-CT)",
-            "Statutory Trust (CT)",
-            "Statutory Trust (Non-CT)",
-            "General Partnership",
-            "Other",
-            "Benefit Corp."
-        ];
+        const DATA_START = moment(appConfig.startData, "YYYY-MM-DD"),
+            DATA_END = moment(appConfig.endData, "YYYY-MM-DD");
 
-        // i know i know, there's no better way to do this
-        const MONTHS = [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-        ];
-
+        var structureOrder = appConfig.structureOrder;
+        const MONTHS = appConfig.months;
         // augment configs so they can just be fed into the following code as-is
         // time
         if ("time" in config && ["year", "quarter", "month"].indexOf(config.time.toLowerCase() !== -1)) {
