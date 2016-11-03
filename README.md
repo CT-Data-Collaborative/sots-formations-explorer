@@ -1,10 +1,4 @@
-# Angular Template for CTData Projects
-
-### Includes:
-- gulp tasks for compiling sass and building angular project file from modularized file structure
-- mobile-friendly sliding sidebar menu
-- fixed header and footer
-
+# SOTS Business Formation Activity Viewer
 
 ### Getting started
 
@@ -13,16 +7,15 @@ and building the final app.js file
 
 ```npm install``` will do the trick
 
-Then install the front-end dependencies using bower.
-
-```bower install``` will do the trick.
-
-The front-end files will end up in the ```static/dist/bower_components``` directory.
-
 There are a few basic gulp commands specified for getting started.
 
-```gulp js``` and ```gulp sass``` will build/compile the angular and sass files respectively.
+```gulp``` will move external dependencies from the node_modules 
+directory, build/compile the angular and sass files respectively and 
+will launch the a local dev server availablne at ```localhost:4444``` 
+or ```0.0.0.0:4444```.
 
-The default gulp command ```gulp``` will launch a local dev server that will serve ```index.html```
-up at ```localhost:8080``` or ```0.0.0.0:8080```. It will also watch your ```sass``` and ```js```
-directories and will recompile/rebuild files as needed.
+### Deploying
+
+If you use AWS S3, you can provide an aws-credentials.json, point
+`aws-upload.conf.js` to your s3 bucket and run `s3upload` to copy the
+built `dist/` directory to your bucket.
