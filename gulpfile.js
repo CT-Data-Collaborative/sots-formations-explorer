@@ -31,8 +31,7 @@ gulp.task('js_dependencies', function() {
         'node_modules/angular-sanitize/angular-sanitize.min.js',
         'node_modules/ng-csv/build/ng-csv.min.js',
         'node_modules/angular-tablescroll/angular-tablescroll.js',
-        'node_modules/spin/dist/spin.min.js',
-        'src/static/js/local_libs/table.js'
+        'node_modules/spin/dist/spin.min.js'
     ]).pipe(gulp.dest('dist/js/libs'));
 });
 
@@ -54,7 +53,7 @@ gulp.task('geojsons', function() {
 
 
 gulp.task('js', function() {
-    gulp.src(['src/static/js/app/**/*.js', 'src/static/js/app/**/*/*.js'])
+    gulp.src(['src/static/js/**/*.js', 'src/static/js/**/*/*.js'])
      // .pipe(sourcemaps.init())
       .pipe(concat('app.js'))
       // .pipe(ngAnnotate())
