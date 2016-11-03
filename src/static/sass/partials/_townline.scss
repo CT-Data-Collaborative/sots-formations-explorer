@@ -1,0 +1,158 @@
+$legendWidth: 8rem;
+
+townline {
+    div.townline-container {
+        /*width: 100%;*/
+        /*display: inline-block;*/
+        /*padding-right: 15rem;*/
+
+        @media screen and (min-width: 1025px) {
+            /*width: calc(100% - 7rem);*/
+        }
+        @media screen and (min-width: 551px) and (max-width: 1024px) {
+            /*width: calc(100% - 15rem);*/
+        }
+        @media screen and (max-width: 550px) {
+            padding-top: 13rem;
+            /*width: calc(100% - 15rem);*/
+        }
+
+        > div.townline-container-internal {
+            height:20rem;
+            width: inherit;
+            /*min-width:40rem;*/
+            margin:1rem;
+        }
+
+        /*scroll notice*/
+        div.scroll-notice {
+            left: calc(100% - 15rem);
+            position: absolute;
+            top: 100%;
+            width: 75%;
+
+            /* transform origin */
+            -webkit-transform-origin: 0 0;
+            -moz-transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            -o-transform-origin: 0 0;
+
+            /* Rotate */
+            -webkit-transform: rotate(-90deg);
+            -moz-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+            -o-transform: rotate(-90deg);
+            filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+            &.lowlight, &.hidden {
+                display: none!important;
+            }
+
+            > p {
+                width: 100%;
+                text-align: center;
+                margin: 0!important;
+            }
+
+            > p > span {
+                font-style: italic;
+                font-size: 0.9rem;
+                color: $dark-grey;
+            }
+            > p > i {
+                padding:0 0.25rem;
+            }
+        }
+    }
+
+    /*div.townline {
+        display: inline-block;
+        width: 16.5%;
+        min-width: 17rem;
+        height: 13rem;
+    }*/
+
+    div.townline-container-internal svg g.townline-lines path {
+        fill: none;
+    }
+
+    div.townline-container-internal svg g path {
+        stroke-width: 0.1rem;
+    }
+    /* Highlight and lowlight for hover effects */
+    div.townline-container svg g path.highlight,
+    div.legend-container svg g.highlight > path {
+        opacity: 1;
+        stroke-width: 0.15rem;
+    }
+    div.townline-container svg g path.lowlight,
+    div.legend-container svg g.lowlight > path {
+        stroke-width: 0.01rem;
+        opacity: 0.4;
+    }
+    div.townline-container svg g g.townline-points path.point {
+        fill: $white;
+    }
+    div.townline-container svg g g.townline-points path.point.lowlight {
+        fill-opacity: 0;
+
+    }
+
+     /** Highlight lowlight for legend entry and townline points **/
+    div.townline-container svg g path.point.highlight,
+    div.legend-container svg g.highlight > path {
+        stroke-width:0.2rem;
+    }
+    div.legend-container svg g.lowlight {
+         opacity: 0.5;
+    }
+
+    div.townline-container-internal g.axis path,
+    div.townline-container-internal g.axis line {
+        stroke-width: 0.05rem;
+        stroke: $extra-dark-grey;
+        fill: none;
+    }
+    
+    div.townline-container-internal g.townline-labels text,
+    div.townline-container-internal g.townline-values text {
+        opacity: 0;
+
+        &.highlight {
+            opacity: 1;
+        }
+    }
+
+    div.legend-container {
+        background-color: $white;
+        /*border: 0.15rem solid #ececec;*/
+        /*border-radius: 0.15rem;*/
+        /*display: inline-block;*/
+        /*float: right;*/
+        /*position: absolute;*/
+        /*right: 0.5rem;*/
+    }
+
+    div.legend.townline-legend {
+        display: inline-block;
+        width: 100%;
+        height: 2rem;
+    }
+
+    @media screen and (max-width: 550px) {
+        div.legend.townline-legend {
+            /*height: 13rem!important;*/
+        }
+        div.townline-legend-container {
+            /*height: 13rem!important;*/
+        }
+    }
+    @media screen and (min-width: 551px) {
+        div.legend.townline-legend {
+            /*height: 30rem!important;*/
+        }
+        div.townline-legend-container {
+            /*height: 30rem!important;*/
+        }
+    }
+}

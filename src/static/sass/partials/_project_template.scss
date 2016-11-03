@@ -1,0 +1,104 @@
+* {
+    font: 100% $font1;
+    color: $extra-dark-grey;
+}
+
+.content {
+  top: 55vh;
+}
+.alt-content {
+  /*top: 50vh;*/
+}
+.content, .alt-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: white;
+  color: black;
+
+  .content-inner {
+    padding-bottom: 15vh;
+  }
+
+  .row {
+    /*padding-bottom: 2rem;*/
+    padding-top: 1rem;
+  }
+}
+
+@media (max-width: 65rem) {
+  body {
+    font-size: 125%;
+  }
+  .content, .alt-content {
+    top: 15vh;
+  }
+}
+
+@media (max-width: 50rem) {
+  .content, .alt-content {
+    top: 12vh;
+
+    .content-inner {
+      padding-bottom: 20vh;
+    }
+  }
+}
+
+@media (max-width: 30rem) {
+  .content, .alt-content {
+    top: 12vh;
+
+    .content-inner {
+      padding-bottom: 25vh;
+    }
+  }
+}
+
+.sots-tooltip {
+    background-color: $extra-dark-grey;
+    opacity: 1!important;
+    max-width: 14rem;
+
+    p {
+      color: $white;
+      margin: 0.25rem 0.5rem!important;
+    }
+
+    &.tooltip-element-attached-bottom:after {
+        top: 100%;
+        left: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-color: rgba(0, 0, 0, 0);
+        border-top-color: $extra-dark-grey;
+        border-width: 0.4rem;
+        margin-left: -0.4rem;
+    }
+
+    &.tooltip-element-attached-top:after {
+      bottom: 100%;
+      left: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-color: rgba(74, 74, 74, 0);
+      border-bottom-color: #4a4a4a;
+      border-width: 10px;
+      margin-left: -10px;
+    }
+
+    > div {
+        padding: 0.5rem 0.3rem;
+        color: $white;
+        font-weight: $heavy;
+        /*font-size: 1.5rem;*/
+    }
+}

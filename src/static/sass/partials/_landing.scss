@@ -1,0 +1,53 @@
+h1 {
+    /*font-size: 3rem;*/
+    font-weight: $heavy;
+    color: $ctdata-extra-dark-blue;
+}
+div.path {
+    padding: 0.5rem 1rem;
+
+    div.bluebar {
+        background-color: $ctdata-extra-dark-blue;
+        display: inline-block;
+        height: calc(100% - 1rem);
+        left: 1rem;
+        position: absolute;
+        top: 8px;
+        width: 1.5rem;
+    }
+
+    > div {
+        min-height:15rem;
+        height: 100%;
+        border: 1px solid $light-grey;
+        /*border-radius: 0.25rem;*/
+        /*border-left: 2rem solid $ctdata-extra-dark-blue;*/
+        padding: 0.5rem;
+        
+        /* Box shadow */
+        box-shadow: 0.1rem 0.1rem 0.1rem 1px $dark-grey;
+        -webkit-box-shadow: 0.1rem 0.1rem 0.1rem 1px $dark-grey;
+        -moz-box-shadow: 0.1rem 0.1rem 0.1rem 1px $dark-grey;
+        -o-box-shadow: 0.1rem 0.1rem 0.1rem 1px $dark-grey;
+    }
+}
+
+div.path-info {
+    > a > h3 {
+        text-decoration: underline;
+    }
+}
+div.path-image {
+    height: 100%;
+
+    > img {
+        width: 100%;
+        max-width: inherit;
+        height: auto;
+        padding:0.2rem;
+    }
+
+    @media screen and (max-width: 400px) {
+        display: none;
+    }
+}

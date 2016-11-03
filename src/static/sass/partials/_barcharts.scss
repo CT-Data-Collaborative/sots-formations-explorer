@@ -1,0 +1,124 @@
+$legendWidth: 8rem;
+
+dataviz {
+    div.barchart-container {
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: 100%;
+        max-height:28rem;
+        display: inline-block;
+        padding-right: 10rem;
+        direction: rtl;
+        border-bottom: 1px solid $extra-light-grey;
+
+        @media screen and (max-width: 550px) {
+            padding-top: 13rem;
+        }
+
+        > div.barchart-container-internal {
+            direction: ltr;
+        }
+
+        /*scroll notice*/
+        /*div.scroll-notice {
+            bottom: 0;
+            position: absolute;
+            width: 100%;
+
+            &.lowlight, &.hidden {
+                display: none!important;
+            }
+
+            > p {
+                width: 100%;
+                text-align: center;
+                margin: 0!important;
+            }
+
+            > p > span {
+                font-style: italic;
+                font-size: 0.9rem;
+                color: $dark-grey;
+            }
+            > p > i {
+                padding:0 0.25rem;
+            }
+        }*/
+    }
+
+    div.barchart {
+        display: inline-block;
+        height: 13rem;
+        min-width: 17rem;
+
+        /*&.county {
+            width: 16.5%;
+            min-width: 17rem;
+        }
+
+        &.town {
+            width: 20%;
+            min-width: 28rem;
+        }*/
+    }
+    div.barchart > svg {
+        background-color: $white;
+    }
+    div.barchart > svg g.barchart-label text {
+        opacity: 0;
+
+        &.highlight {
+            opacity: 1;
+        }
+    }
+    div.barchart > svg g.barchart-bar rect {
+        stroke: $extra-dark-grey;
+        stroke-width: 0.02rem;
+
+        &.lowlight {
+            opacity: 0.4;
+        }
+
+        &.highlight {
+            stroke-width: 0.2rem;
+            /*fill: $red!important;*/
+        }
+    }
+
+    div.barchart-container-internal g.axis path,
+    div.barchart-container-internal g.axis line {
+        stroke-width: 0.05rem;
+        stroke: $extra-dark-grey;
+        fill: none;
+    }
+
+    div.legend-container {
+        /*border: 0.15rem solid #ececec;
+        border-radius: 0.15rem;
+        display: inline-block;
+        float: right;
+        position: absolute;
+        right: 1.25rem;
+        top: 2.75rem;*/
+
+        background-color: $white;
+        border: 0.15rem solid #ececec;
+        border-radius: 0.15rem;
+        display: inline-block;
+        float: right;
+        height: 10rem;
+        position: absolute;
+        right: 0.5rem;
+        margin-top:0.5rem;
+    }
+
+    div.legend {
+        display: inline-block;
+        width: 8rem;
+        height: 10rem;
+    }
+
+    div.legend .legend-info-icon {
+        cursor: default;
+    }
+}

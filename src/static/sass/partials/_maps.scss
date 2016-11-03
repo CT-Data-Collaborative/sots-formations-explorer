@@ -1,0 +1,111 @@
+$legendWidth: 8rem;
+
+dataviz {
+    div.map-container {
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: 100%;
+        max-height:28rem;
+        display: inline-block;
+        padding-right: 10rem;
+        direction: rtl;
+        border-bottom: 1px solid $extra-light-grey;
+
+        @media screen and (max-width: 550px) {
+            padding-top: 13rem;
+        }
+
+        > div.map-container-internal {
+            direction: ltr;
+        }
+
+        /*scroll notice*/
+        div.scroll-notice {
+            display: none;
+            bottom: 0;
+            position: absolute;
+            width: 100%;
+
+            &.lowlight, &.hidden {
+                display: none!important;
+            }
+
+            > p {
+                width: 100%;
+                text-align: center;
+                margin: 0!important;
+            }
+
+            > p > span {
+                font-style: italic;
+                font-size: 0.9rem;
+                color: $dark-grey;
+            }
+            > p > i {
+                padding:0 0.25rem;
+            }
+        }
+    }
+
+    div.map {
+        display: inline-block;
+        width: 16.5%;
+        min-width: 17rem;
+        height: 13rem;
+    }
+    div.map > svg {
+        background-color: $white;
+    }
+
+    div.map > svg path.mappath {
+        stroke-width: 0.03rem;
+        stroke: $extra-dark-grey;
+    }
+    
+    div.map > svg text.mapinfo {
+        cursor: default;
+        opacity: 0;
+    }
+    div.map > svg text.mapinfo.highlight {
+        opacity: 1;
+    }
+
+    div.map > svg path.mappath.highlight {
+        /*stroke: $extra-light-grey;*/
+        stroke-width: 0.2rem;
+        opacity: 1;
+    }
+    div.map > svg path.mappath.lowlight {
+        opacity: 0.25;
+    }
+
+    div.legend-container {
+        /*border: 0.15rem solid #ececec;
+        border-radius: 0.15rem;
+        display: inline-block;
+        float: right;
+        position: absolute;
+        right: 1.25rem;
+        top: 2.75rem;*/
+
+        background-color: $white;
+        border: 0.15rem solid #ececec;
+        border-radius: 0.15rem;
+        display: inline-block;
+        float: right;
+        height: 10rem;
+        position: absolute;
+        right: 0.5rem;
+        margin-top:0.5rem;
+    }
+
+    div.legend {
+        display: inline-block;
+        width: 8rem;
+        height: 10rem;
+    }
+
+    div.legend .legend-info-icon {
+        cursor: default;
+    }
+}

@@ -1,0 +1,177 @@
+/* Add large gutters for main content to make the content less wide */
+div.main-internal {
+    padding-left: 8%;
+    padding-right: 8%;
+    overflow-y: auto;
+}
+
+/* Div container for filter controls */
+div#config_controls {
+    margin-top: 1rem;
+    > div {
+        padding: 0 0.5rem;
+        display: inline-block;
+        /*min-width: 10rem;*/
+
+        > h4 {
+            font-size: 1rem;
+            font-weight: $heavy;
+        }
+
+        > label {
+            width:6rem;
+        }
+    }
+
+    > div.dateselector-container {
+        > dateselector {
+            padding: 0 0.5rem 0.5rem;
+            margin-bottom: 0.5rem;
+
+            select {
+                min-width: 8rem;
+            }
+        }
+    }
+}
+
+/* Div containers for facets of data */
+div.facet-container {
+    border:0.15rem solid $extra-light-grey;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 1rem;
+
+    .facet-title {
+        /*background-color: $ctdata-extra-dark-blue;*/
+        background-color: $highlight-blue;
+        color: $white;
+        padding:0.25rem 1rem;
+        cursor: pointer;
+        
+        h3 {
+            margin-top: 0.5rem;
+
+            i {
+                color: $white;
+                @media screen and (max-width: 500px) {
+                    display: none!important;
+                }
+            }
+        }
+
+    }
+}
+
+/* Data overload Dialogue and its overlay */
+div.ngdialog-overlay {
+    content: " ";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 9999;
+
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+}
+
+div.ngdialog-closing div.ngdialog-content {
+    animation: 0.5s ease 0s normal none 1 running data-warning-fadeout;
+}
+
+div.ngdialog-content {
+    z-index: 99999;
+
+    animation: 0.5s ease 0s normal none 1 running data-warning-fadein;
+    background: $extra-light-grey none repeat scroll 0 0;
+    color: $extra-dark-grey;
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+    margin: 0 auto;
+    padding: 1rem;
+    position: relative;
+    width: 100%;
+    max-width: 50rem;
+}
+
+/** animation keyframes **/
+/* Fade In */
+@-webkit-keyframes data-warning-fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes data-warning-fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+/* Fade Out */
+@-webkit-keyframes data-warning-fadeout {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes data-warning-fadeout {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+/** END animation keyframes **/
+
+/* Loading overlay styling */
+.ctdata-loading-overlay {
+    &.dw-loading > .dw-loading-body > .dw-loading-text {
+        font-size: 2rem;
+        font-weight: bold;
+        position: relative;
+        top: 5rem;
+        color: $extra-dark-grey;
+    }
+}
+
+div.metadata {
+    div.metadata-toggle {
+        font-size: 1.2rem;
+        color: $extra-dark-grey;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    a {
+        white-space: nowrap;
+    }
+    a i {
+        color: inherit;
+        font-size: 0.7rem;
+        padding: 0.2rem;
+        vertical-align: top;
+    }
+
+    b > i {
+        font-weight: $heavy;
+        font-style: italic;
+    }
+}

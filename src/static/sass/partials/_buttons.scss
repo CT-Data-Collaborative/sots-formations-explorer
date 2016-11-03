@@ -1,0 +1,48 @@
+.ctdata-btn {
+	background-color: $ctdata-extra-dark-blue;
+	color: $ctdata-extra-light-blue;
+}
+
+.ctdata-btn:hover {
+	background-color: $ctdata-extra-light-blue;
+	color: black;
+}
+
+.ctdata-btn-toggle {
+    color: #2F2F2F;
+    background-color: $light-grey;
+    border: 0.15rem solid $dark-grey;
+}
+
+.ctdata-btn-toggle.active {
+    color: #FDFDFD;
+    background-color: $highlight-blue;
+}
+
+.ctdata-btn-toggle:hover {
+    background-color: $ctdata-dark-blue!important;
+}
+
+.ctdata-btn-remove {
+    color: $red;
+    cursor: pointer;
+}
+
+.ctdata-btn-wide {
+    width: 100%;
+}
+
+dateselector > label,
+dateselector > div {
+    display: inline-block;
+}
+dateselector > label {
+    margin: 0 0.5rem;
+}
+.multiSelect > button {
+    background-image: none!important;
+}
+
+button, select, label.btn{
+    border-radius: 0!important;
+}

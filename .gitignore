@@ -1,0 +1,11 @@
+/dist
+aws-upload.conf.js
+aws-credentials.json
+
+# File System Stuff
+.DS_Store
+.idea/
+node_modules/
+/src/static/data/*.*
+/src/static/data/
+/src/static/data

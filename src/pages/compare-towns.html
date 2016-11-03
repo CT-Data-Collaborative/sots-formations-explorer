@@ -1,0 +1,196 @@
+<div class="container-fluid main-internal" dw-loading="data">
+    <div class="row" id="config">
+        <div class="col-sm-12 step_title">
+            <h1>
+            Select Towns and Options
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 instructions">
+            <p>
+                The first town you select is the 'base' town and all other selections will be compared against this town.
+            </p>
+            <p>
+                <b>First</b>, select a base town.
+            </p>
+            <p>
+                <b>Then</b>, select towns to compare against. You can select up to four comparison towns.
+            </p>
+            <p>
+                <b>Lastly</b>, select a Time Period, Date Range, and one or more Business Entity Type(s).
+            </p>
+            <p>
+                Addresses of the business represent the current town of the business and not necessarily the town where it was originally formed. <a ng-click="collapsed['metadata']=false;scrollTo('metadata');">See metadata at the bottom of the page for more information.</a>
+            </p>
+        </div>
+        <div id="config-controls" class="col-xs-12 col-sm-12 col-md-12 col-lg-9" >
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <h4>My Town</h4>
+                    <p class="text-danger" ng-hide=config.towns.base>Please select a base town!</p>
+                    <ul class="selectormap_list">
+                        <li ng-hide="!config.towns.base">
+                            <i class="ctdata-btn-remove fa fa-remove" ng-click="toggleTown(config.towns.base, false)"></i>
+                            <span>{{ config.towns.base.name }}</span>
+                        </li>
+                    </ul>
+                    <h4>Compare Against</h4>
+                    <ul class="selectormap_list">
+                        <li ng-repeat="town in config.towns.comparators">
+                            <i class="ctdata-btn-remove fa fa-remove" ng-click="toggleTown(town, false)"></i>
+                            <span>{{ town.name }}</span>
+                            
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <selectormap check-base=checkBase toggle-town=toggleTown></selectormap>
+                </div>
+            </div>
+            <div class="row" ng-repeat="control in configOptions">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-4">
+                    <h4 class="control-label">{{ control.label }}</h4>
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-8">
+                    <label ng-repeat="option in control.options" class="btn ctdata-btn-toggle" ng-model="config[(control.name | lowercase)]" btn-radio="(option | lowercase)">
+                        {{ option }}
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-4">
+                    <h4 class="control-label">Date Range</h4>
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-8">
+                    <dateselector class="form-group form-inline" ng-repeat="option in ['Start', 'End']" ng-model="config[(option | lowercase)]" unit="(config.time | lowercase)" name="option"></dateselector>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-4">
+                    <h4 class="control-label">Business Entity Types</h4>
+                    <p class="text-danger" ng-hide="(config.structures.length>0)">Please select at least one entity type!</p>
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-8">
+                    <div isteven-multi-select input-model="structures" output-model="config.structures" button-label="label" item-label="label" helper-elements="reset" tick-property="ticked" max-height="10rem">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-inline checkbox col-xs-6 col-xs-offset-2 col-lg-offset-4">
+                    <button type="button" class="btn ctdata-btn ctdata-btn-wide" ng-disabled="!canVisualize()" ng-click="config.submit=true">Visualize</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row" id="visualisation">
+        <div class="col-sm-12 step_title">
+            <h1>
+            See the data
+            <div class="pull-right">
+                <button type="button" class="btn btn-sm btn-link" ng-click="scrollTo('config')">
+                    Choose Different Towns or Options
+                </button>
+                <button type="button" class="btn btn-sm btn-link" csv-header="getSumHeader()" csv-column-order="getSumHeader()" ng-csv="getSumData()" filename="summary-of-business-entity-formations.csv" ng-disabled="data.length<1">
+                    Download This Table
+                </button>
+                <button type="button" class="btn btn-sm btn-link" csv-header="getCSVHeader()" csv-column-order="getCSVHeader()" ng-csv="getCSVData()" filename="business-entity-formations.csv" ng-disabled="data.length<1">
+                    Download Raw Data
+                </button>
+            </div>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+            <p><b>Table:</b> First row of values are a summation over the time period selected. Second row of values calculate an average over the time period selected. The percent difference is from the 'base' town which is always displayed in the first column.</p>
+            <p><b>Line Chart:</b> Displays actual values for time period selected. Hover over a point to see the actual value.</p>
+            <p><b>Raw Data:</b> Click the link at the top right of the table to download the raw data for this visualization. This data will be for the time period, towns, and business entity types you selected.</p>
+        </div>
+        <div id="visualization" class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <towntable config=config  data=data></towntable>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <townline config=config  data=data></townline>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row metadata" id="metadata">
+        <div class="col-xs-12 metadata-toggle" ng-click="collapsed['metadata']=!collapsed['metadata']">
+            <span>View Metadata</span>
+            <i class="fa" ng-class="{'true' : 'fa-plus-circle', 'false' : 'fa-minus-circle'}[collapsed['metadata']]"></i>
+        </div>
+        <div class="col-xs-12" collapse="collapsed['metadata']">
+            <h2>
+                Overview and Relevant Legislation
+            </h2>
+            <p>
+                This data portal provides business formation and public record filing data filed with the Office of the Secretary of the State from 1980 to 2015. The Secretary of the State's business registry records filing types mandated or authorized under <a target="_blank" href="https://www.cga.ct.gov/2011/pub/title33.htm">Title 33<i class="fa fa-external-link-square"></i></a> and <a target="_blank" href="https://www.cga.ct.gov/2011/pub/title34.htm">Title 34<i class="fa fa-external-link-square"></i></a> of the Connecticut General Statutes, comprising the bodies of law regulating business entity formation and the governance of Business Corporations, Nonstock Corporations, Benefit Corporations, Limited Liability Companies, Limited Liability Partnerships, Limited Partnerships and Statutory Trusts.
+            </p>
+            <h3>
+                Business Entity Types
+            </h3>
+            <p>
+                The public record indicates business types as domestic &mdash; meaning formed under CT laws &mdash; or foreign &mdash; formed outside of CT either another state in the United States or outside the United States.
+            </p>
+            <h3>Business Entity Types required to file with the SOTS:</h3>
+            <p>
+                <ul>
+                    <li>
+                        <b>LLC (CT)</b> &mdash; Limited Liability Company formed under the laws of CT, without regard to physical location
+                    </li>
+                    <li>
+                        <b>LLC (Non-CT)</b> &mdash; Limited Liability Company formed under the laws of a jurisdiction other than CT, without regard to physical location
+                    </li>
+                    <li>
+                        <b>Stock Corporation</b> &mdash; Generally referring to a "business corporation", whether Domestic or Foreign
+                    </li>
+                    <li>
+                        <b>Nonstock Corporation</b> &mdash; usually a nonprofit company, whether Domestic or Foreign, but may also be a religious corporation, religious society or a corporation formed by Special Public Act of the CT General Assembly
+                    </li>
+                    <li>
+                        <b>LP</b> &mdash; Limited Partnership, whether Domestic or Foreign
+                    </li>
+                    <li>
+                        <b>LLP</b> &mdash; Limited Liability Partnership, whether Domestic or Foreign
+                    </li>
+                    <li>
+                        <b>Stat. Trust</b> &mdash; whether Domestic or Foreign
+                    </li>
+                    <li>
+                        <b>Benefit Corp.</b> &mdash; a subcategory of Business Corporations that became effective in 2014. <b>Note</b>: the record only differentiates Domestic Benefit Corporations. The record does not differentiate Foreign Benefit Corporations, which are recorded only as general Foreign Corporations.
+                    </li>
+                    <li>
+                        <b>Other</b> &mdash; Banks, Credit Unions, and Insurance Companies, which are not generally required to register with the SOTS, but which are authorized to register with the SOTS.
+                    </li>
+                </ul>
+            </p>
+            <p>
+                While <b>all <i>statutory</i> business entities</b> are required to file with the Secretary of the State ("SOTS"), <b>not all business types</b> are required to file with the Secretary. Sole Proprietorships and General Partnerships are not statutory entity types, and are instead required to file trade name certificates with Town Clerks, when operating under assumed names (often called "d/b/a's"). A small number of General Partnerships voluntarily register with SOTS, and are present in our data, however they do not represent a comprehensive measure of the formation of General Partnerships.
+            </p>
+            <h3>
+                Limitations of this Data
+            </h3>
+            <h4>
+                Addresses
+            </h4>
+            <p>
+                Addresses listed on the public record represent the current address by each entity of record. Note that this may not necessarily be the address of the entity's original formation.
+            </p>
+            <p>
+                The domesticity of an entity is determined by the jurisdiction of the laws under which the entity is formed and governed, rather than the physical location of the entity's headquarters or offices. For example, a company could be headquartered in Connecticut and be a Delaware company by virtue of its choice of Delaware corporate law under which to form and govern its internal affairs. 
+            </p>
+            <h4>
+                Industry Classification
+            </h4>
+            <p>
+                In the formation filings, businesses are not required to indicate their industry. Therefore industry data is not present in this database.
+            </p>
+            <h4>
+                Business Churn
+            </h4>
+            <p>
+                In 1995, legislation removed the authority of the Secretary of the State to dissolve entities that are noncompliant with Annual Report filing requirements. This does not impact formation numbers, but means a business churn value cannot be calculated. Effective January 1, 2015, this authority was reinstated to the Secretary of the State. To be administratively dissolved, a business must be in default status for a year, then it will be dissolved in the second year of noncompliance. In the case of Nonstock Corporations, the entity must be in default status for two years, and will be administratively dissolved in its third year of noncompliance. SOTS will begin purging businesses from the record beginning in mid-2016.
+            </p>
+        </div>
+    </div>
+</div>

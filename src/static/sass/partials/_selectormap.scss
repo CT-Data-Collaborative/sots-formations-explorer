@@ -1,0 +1,70 @@
+$legendWidth: 8rem;
+
+selectormap {
+    div.selectormap-container {
+        width: 100%;
+        /*max-height:40rem;*/
+        display: inline-block;
+    }
+
+    div.selectormap-container-internal {
+        display: inline-block;
+        width: inherit;
+        /*min-width: 17rem;*/
+        /*height: 30rem;*/
+        /*height: 30vh;*/
+
+        > svg {
+            background-color: $white;
+
+            g.mapgroup {
+                cursor: pointer;
+            }
+            
+            path.mappath {
+                stroke-width: 0.03rem;
+                stroke: $extra-dark-grey;
+            }
+
+            g.mapgroup.selected.mytown {
+                > path.mappath {
+                    stroke-width: 0.15rem;
+                    fill: $ctdata-dark-blue;
+                }
+            }
+            g.mapgroup.selected {
+                > path.mappath {
+                    stroke-width: 0.15rem;
+                    fill: $red;
+                }
+            }
+
+            g.mapgroup.highlight {
+                > path.mappath {
+                    stroke-width: 0.1rem;
+                }
+
+                > text.mapinfo {
+                    opacity: 1;
+                }
+            }
+
+            text.mapinfo {
+                cursor: default;
+                opacity: 0;
+            }
+
+            
+
+            path.mappath.highlight {
+                /*stroke: $extra-light-grey;*/
+                stroke-width: 0.2rem;
+                opacity: 1;
+            }
+
+            path.mappath.lowlight {
+                opacity: 0.25;
+            }
+        }
+    }
+}
