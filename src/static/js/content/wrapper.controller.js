@@ -1,6 +1,9 @@
 angular.module('app')
-.controller('WrapperController', ['$location', '$scope', function($location, $scope) {
-
+.controller('WrapperController', ['$location', '$scope', 'appConfig', function($location, $scope, appConfig) {
+    const DATA_START = moment(appConfig.startData, "YYYY-MM-DD"),
+        DATA_END = moment(appConfig.endData, "YYYY-MM-DD");
+    $scope.startYear = DATA_START.year();
+    $scope.endYear = DATA_END.year();
     var links = [
         {
             link: "/#/",
