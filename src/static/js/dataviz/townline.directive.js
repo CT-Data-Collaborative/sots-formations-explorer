@@ -29,6 +29,7 @@ angular.module('app')
             };
 
             scope.$watchCollection('data', function(data) {
+                console.log(data);
                 scope.render();
             });
         }

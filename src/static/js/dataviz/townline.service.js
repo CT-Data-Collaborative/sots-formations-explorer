@@ -293,8 +293,8 @@ angular.module('app')
                     x = d3.time.scale()
                         .range([0, width])
                         .domain([
-                            parseDate(config.start[0].value),
-                            parseDate(config.end[0].value),
+                            parseDate(config.start),
+                            parseDate(config.end),
                         ]),
                     y = d3.scale.linear()
                         .range([height, 0])
@@ -313,7 +313,7 @@ angular.module('app')
                     // axis functions
                     xAxisTicks = d3.min([
                         getMaxTicks(BBox.width),
-                        dateSpan(config.start[0].value, config.end[0].value)
+                        dateSpan(config.start, config.end)
                     ]),
                     xAxis = d3.svg.axis()
                         .scale(x)

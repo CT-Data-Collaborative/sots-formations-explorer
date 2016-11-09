@@ -2,12 +2,13 @@
     <div class="row" id="config">
         <div class="col-sm-12 step_title">
             <h1>
-            Select Towns and Options
+                Select Towns and Options
             </h1>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 instructions">
             <p>
-                The first town you select is the 'base' town and all other selections will be compared against this town.
+                The first town you select is the 'base' town and all other selections will be compared against this
+                town.
             </p>
             <p>
                 <b>First</b>, select a base town.
@@ -19,17 +20,20 @@
                 <b>Lastly</b>, select a Time Period, Date Range, and one or more Business Entity Type(s).
             </p>
             <p>
-                Addresses of the business represent the current town of the business and not necessarily the town where it was originally formed. <a ng-click="collapsed['metadata']=false;scrollTo('metadata');">See metadata at the bottom of the page for more information.</a>
+                Addresses of the business represent the current town of the business and not necessarily the town where
+                it was originally formed. <a ng-click="collapsed['metadata']=false;scrollTo('metadata');">See metadata
+                at the bottom of the page for more information.</a>
             </p>
         </div>
-        <div id="config-controls" class="col-xs-12 col-sm-12 col-md-12 col-lg-9" >
+        <div id="config-controls" class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
             <div class="row">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <h4>My Town</h4>
                     <p class="text-danger" ng-hide=config.towns.base>Please select a base town!</p>
                     <ul class="selectormap_list">
                         <li ng-hide="!config.towns.base">
-                            <i class="ctdata-btn-remove fa fa-remove" ng-click="toggleTown(config.towns.base, false)"></i>
+                            <i class="ctdata-btn-remove fa fa-remove"
+                               ng-click="toggleTown(config.towns.base, false)"></i>
                             <span>{{ config.towns.base.name }}</span>
                         </li>
                     </ul>
@@ -38,7 +42,7 @@
                         <li ng-repeat="town in config.towns.comparators">
                             <i class="ctdata-btn-remove fa fa-remove" ng-click="toggleTown(town, false)"></i>
                             <span>{{ town.name }}</span>
-                            
+
                         </li>
                     </ul>
                 </div>
@@ -51,7 +55,8 @@
                     <h4 class="control-label">{{ control.label }}</h4>
                 </div>
                 <div class="col-xs-10 col-sm-10 col-md-10 col-lg-8">
-                    <label ng-repeat="option in control.options" class="btn ctdata-btn-toggle" ng-model="config[(control.name | lowercase)]" uib-btn-radio="(option | lowercase)">
+                    <label ng-repeat="option in control.options" class="btn ctdata-btn-toggle"
+                           ng-model="config[(control.name | lowercase)]" uib-btn-radio="(option | lowercase)">
                         {{ option }}
                     </label>
                 </div>
@@ -61,63 +66,100 @@
                     <h4 class="control-label">Date Range</h4>
                 </div>
                 <div class="col-xs-10 col-sm-10 col-md-10 col-lg-8">
-                    <dateselector class="form-group form-inline" ng-repeat="option in ['Start', 'End']" ng-model="config[(option | lowercase)]" unit="(config.time | lowercase)" name="option"></dateselector>
+                    <span>Start</span>
+                    <div class="btn-group" uib-dropdown is-open="startStatus.isopen">
+                        <button id="start-date-button" type="button" class="btn btn-primary" uib-dropdown-toggle
+                                ng-disabled="disabled">
+                            {{ config.start }}<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li class="dropdown-menu-option" role="menuitem" ng-click="selectStart(option)"
+                                ng-repeat="option in activeChoices">{{option.label}}
+                            </li>
+                        </ul>
+                    </div>
+                    <span>End</span>
+                    <div class="btn-group" uib-dropdown is-open="endStatus.isopen">
+                        <button id="end-date-button" type="button" class="btn btn-primary" uib-dropdown-toggle
+                                ng-disabled="disabled">
+                            {{ config.end }}<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li class="dropdown-menu-option" role="menuitem" ng-click="selectEnd(option)"
+                                ng-repeat="option in activeChoices">{{option.label}}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-4">
                     <h4 class="control-label">Business Entity Types</h4>
-                    <p class="text-danger" ng-hide="(config.structures.length>0)">Please select at least one entity type!</p>
+                    <p class="text-danger" ng-hide="(config.structures.length>0)">Please select at least one entity
+                        type!</p>
                 </div>
                 <div class="col-xs-10 col-sm-10 col-md-10 col-lg-8">
-                    <div isteven-multi-select input-model="structures" output-model="config.structures" button-label="label" item-label="label" helper-elements="reset" tick-property="ticked" max-height="10rem">
+                    <div isteven-multi-select input-model="structures" output-model="config.structures"
+                         button-label="label" item-label="label" helper-elements="reset" tick-property="ticked"
+                         max-height="10rem">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="form-inline checkbox col-xs-6 col-xs-offset-2 col-lg-offset-4">
-                    <button type="button" class="btn ctdata-btn ctdata-btn-wide" ng-disabled="!canVisualize()" ng-click="config.submit=true">Visualize</button>
+                    <button type="button" class="btn ctdata-btn ctdata-btn-wide" ng-disabled="!canVisualize()"
+                            ng-click="config.submit=true">Visualize
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    <hr />
+    <hr/>
     <div class="row" id="visualisation">
         <div class="col-sm-12 step_title">
             <h1>
-            See the data
-            <div class="pull-right">
-                <button type="button" class="btn btn-sm btn-link" ng-click="scrollTo('config')">
-                    Choose Different Towns or Options
-                </button>
-                <button type="button" class="btn btn-sm btn-link" csv-header="getSumHeader()" csv-column-order="getSumHeader()" ng-csv="getSumData()" filename="summary-of-business-entity-formations.csv" ng-disabled="data.length<1">
-                    Download This Table
-                </button>
-                <button type="button" class="btn btn-sm btn-link" csv-header="getCSVHeader()" csv-column-order="getCSVHeader()" ng-csv="getCSVData()" filename="business-entity-formations.csv" ng-disabled="data.length<1">
-                    Download Raw Data
-                </button>
-            </div>
+                See the data
+                <div class="pull-right">
+                    <button type="button" class="btn btn-sm btn-link" ng-click="scrollTo('config')">
+                        Choose Different Towns or Options
+                    </button>
+                    <button type="button" class="btn btn-sm btn-link" csv-header="getSumHeader()"
+                            csv-column-order="getSumHeader()" ng-csv="getSumData()"
+                            filename="summary-of-business-entity-formations.csv" ng-disabled="data.length<1">
+                        Download This Table
+                    </button>
+                    <button type="button" class="btn btn-sm btn-link" csv-header="getCSVHeader()"
+                            csv-column-order="getCSVHeader()" ng-csv="getCSVData()"
+                            filename="business-entity-formations.csv" ng-disabled="data.length<1">
+                        Download Raw Data
+                    </button>
+                </div>
             </h1>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
-            <p><b>Table:</b> First row of values are a summation over the time period selected. Second row of values calculate an average over the time period selected. The percent difference is from the 'base' town which is always displayed in the first column.</p>
-            <p><b>Line Chart:</b> Displays actual values for time period selected. Hover over a point to see the actual value.</p>
-            <p><b>Raw Data:</b> Click the link at the top right of the table to download the raw data for this visualization. This data will be for the time period, towns, and business entity types you selected.</p>
+            <p><b>Table:</b> First row of values are a summation over the time period selected. Second row of values
+                calculate an average over the time period selected. The percent difference is from the 'base' town which
+                is always displayed in the first column.</p>
+            <p><b>Line Chart:</b> Displays actual values for time period selected. Hover over a point to see the actual
+                value.</p>
+            <p><b>Raw Data:</b> Click the link at the top right of the table to download the raw data for this
+                visualization. This data will be for the time period, towns, and business entity types you selected.</p>
         </div>
         <div id="visualization" class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <towntable config=config  data=data></towntable>
+                <towntable config=config data=data></towntable>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <townline config=config  data=data></townline>
+                <townline config=config data=data></townline>
             </div>
         </div>
     </div>
-    <hr />
+    <hr/>
     <div class="row metadata" id="metadata">
         <div class="col-xs-12 metadata-toggle" ng-click="collapsed['metadata']=!collapsed['metadata']">
             <span>View Metadata</span>
-            <i class="fa" ng-class="{'true' : 'fa-plus-circle', 'false' : 'fa-minus-circle'}[collapsed['metadata']]"></i>
+            <i class="fa"
+               ng-class="{'true' : 'fa-plus-circle', 'false' : 'fa-minus-circle'}[collapsed['metadata']]"></i>
         </div>
         <div class="col-xs-12" uib-collapse="collapsed['metadata']">
             <div ng-include="'/templates/metadata.html'"></div>

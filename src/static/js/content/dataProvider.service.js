@@ -14,19 +14,11 @@ angular.module('app')
                 .value();
         // get list of all years between start and end
         // including the rest of year if we're starting in the middle of one, eg "Q2 2012"
-        var timeIntervals = {
-                "year" : {years : 1},
-                "quarter" : {months : 3},
-                "month" : {months : 1}
-            };
-        var timeFormats = {
-                "year" : "YYYY",
-                "quarter" : "[Q]Q YYYY",
-                "month" : "MMM YYYY"
-            };
+        var timeIntervals = appConfig.intervals;
+        var timeFormats = appConfig.timeFormats;
 
-        var start = moment(config.start[0].value, timeFormats[config.time]).startOf("year")
-        var end = moment(config.end[0].value, timeFormats[config.time]).endOf("year")
+        var start = moment(config.start, timeFormats[config.time]).startOf("year")
+        var end = moment(config.end, timeFormats[config.time]).endOf("year")
 
         // generate time interval list
         timeList = [];
@@ -48,7 +40,7 @@ angular.module('app')
 
 
     dataProvider.getData = function(config) {
-        console.log("Provider getting data!")
+        //console.log("Provider getting data!")
 
         var requests = dataProvider.buildPieces(config)
             .map(function(piece) {

@@ -4,6 +4,8 @@
             <h1>
                 Select Options
             </h1>
+            {{ config.test_start }}
+            {{ config.test_end }}
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 instructions">
             <p>
@@ -43,9 +45,24 @@
                     <h4 class="control-label">Date Range</h4>
                 </div>
                 <div class="col-xs-10 col-sm-10 col-md-10 col-lg-8">
-                    <dateselector class="form-group form-inline" ng-repeat="option in ['Start', 'End']"
-                                  ng-model="config[(option | lowercase)]" unit="(config.time | lowercase)"
-                                  name="option"></dateselector>
+                    <span>Start</span>
+                    <div class="btn-group" uib-dropdown is-open="startStatus.isopen">
+                        <button id="start-date-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+                            {{ config.start }}<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li class="dropdown-menu-option" role="menuitem" ng-click="selectStart(option)" ng-repeat="option in activeChoices">{{option.label}}</li>
+                        </ul>
+                    </div>
+                    <span>End</span>
+                    <div class="btn-group" uib-dropdown is-open="endStatus.isopen">
+                        <button id="end-date-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+                            {{ config.end }}<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li class="dropdown-menu-option" role="menuitem" ng-click="selectEnd(option)" ng-repeat="option in activeChoices">{{option.label}}</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="row">

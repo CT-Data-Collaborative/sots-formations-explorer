@@ -20,18 +20,52 @@ angular.module('app')
                 "Benefit Corp."
             ],
             'months': [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"]
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"],
+            'dateUnitChoices': {},
+            'timeFormats': {
+                "year" : "YYYY",
+                "quarter" : "[Q]Q YYYY",
+                "month" : "MMM YYYY"
+            },
+            'intervals': {
+                "year" : {years : 1},
+                "quarter" : {months : 3},
+                "month" : {months : 1}
+            }
+        };
+
+        var buildOptions = function(startDate, endDate, dateFormat) {
+            var formatStr = settings.timeFormats[dateFormat];
+            var start = moment(startDate);
+            var current = moment(endDate);
+            var options = [];
+            while (current.isAfter(start)) {
+                var option = current.format(formatStr);
+                options.push({
+                    "value": option,
+                    "label": option,
+                    "start": false,
+                    "end": false
+                });
+                current.subtract(settings.intervals[dateFormat])
+            };
+            return options
+        };
+        // Set up intervals for date selectors
+
+        for (var f in settings.timeFormats) {
+            settings.dateUnitChoices[f] = buildOptions(settings.startData, settings.endData, f)
         }
         return settings;
     }]);

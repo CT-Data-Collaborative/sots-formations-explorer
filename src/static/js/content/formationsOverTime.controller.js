@@ -2,6 +2,7 @@ angular.module('app')
     .controller('FormationsOverTimeController', ['$scope', '$anchorScroll', '$loading', 'ngDialog', 'lodash', 'dataProvider', 'dataProcessor', 'appConfig',
         function ($scope, $anchorScroll, $loading, ngDialog, lodash, dataProvider, dataProcessor, appConfig) {
             var endYear = moment(appConfig.endData).year();
+            $scope.dateUnitChoices = appConfig.dateUnitChoices;
 
             $loading.setDefaultOptions(
                 {
@@ -27,6 +28,8 @@ angular.module('app')
                 "time": "year", // year, month, quarter ?
                 "start": String(endYear - 3), // a year between 1980 and 2015 inclusive
                 "end": String(endYear), // a year between 1980 and 2015 inclusive
+                "last_start": String(endYear - 3), // a year between 1980 and 2015 inclusive
+                "last_end": String(endYear), // a year between 1980 and 2015 inclusive
                 "geography": "county", // county, town
                 "facet": "structure", // structure, time
                 "type": "map", // map, line
@@ -35,10 +38,20 @@ angular.module('app')
                 "process": false, // a flag for interactivity
                 "submit": false // a flag for submit button click
             };
+            $scope.activeChoices = appConfig.dateUnitChoices[$scope.config.time];
 
+            $scope.selectStart = function(item) {
+                $scope.config.start = item.value;
+            }
+            $scope.selectEnd = function(item) {
+                $scope.config.end = item.value;
+            }
+            $scope.config.vizCount = countData($scope.config);
             $scope.structures = appConfig.structureOrder.map(function(s) {
                 return {"label": s, "value": s}
             });
+
+
 
             $scope.configOptions = {
                 "Time": {
@@ -62,9 +75,7 @@ angular.module('app')
                     "options": ["Map", "Bar"]
                 }
             };
-
             $scope.data = [];
-
 
             $scope.scrollTo = function (hash) {
                 console.log(hash);
@@ -91,6 +102,7 @@ angular.module('app')
             $scope.printData = function () {
                 console.log($scope.getCSVData());
             }
+
             $scope.getCSVData = function () {
                 // get facet labels
                 if ($scope.config.facet === "time") {
@@ -124,26 +136,21 @@ angular.module('app')
                 return CSVData;
             }
 
-            var countData = function (newConfig) {
-                if (newConfig.facet == "structure") {
+            function countData(configObject) {
+                console.log("countData called")
+                if (configObject.facet == "structure") {
                     // count number of time units in span of selected range
-                    var timeFormats = {
-                            "year": "YYYY",
-                            "quarter": "[Q]Q YYYY",
-                            "month": "MMM YYYY"
-                        },
-                        startMoment = moment(newConfig.start, timeFormats[newConfig.time]),
-                        endMoment = moment(newConfig.end, timeFormats[newConfig.time]).endOf(newConfig.time).add(1, "ms"),
-                        timeUnitCount = endMoment.diff(startMoment, newConfig.time, true);
-
-                    // console.log("Comparing number of units between \"" + startMoment.format("YYYY-MM-DD")+"\" and \"" + endMoment.format("YYYY-MM-DD") + "\", with unit \"" + newConfig.time + "\".")
+                    var timeFormats = appConfig.timeFormats,
+                        startMoment = moment(configObject.start, timeFormats[configObject.time]),
+                        endMoment = moment(configObject.end, timeFormats[configObject.time]).endOf(configObject.time).add(1, "ms"),
+                        timeUnitCount = endMoment.diff(startMoment, configObject.time, true);
                     return timeUnitCount;
                 } else {
                     return 12;
                 }
             }
-
-            var updateData = function () {
+            function updateData() {
+                console.log("updateData called")
                 $loading.start("data");
                 var dataPromise = dataProvider.getData($scope.config);
                 dataPromise.then(function (result) {
@@ -156,33 +163,25 @@ angular.module('app')
             }
 
             $scope.$watchCollection("config", function (newConfig, oldConfig) {
-                var timeFormats = {
-                        "year": "YYYY",
-                        "quarter": "[Q]Q YYYY",
-                        "month": "MMM YYYY"
-                    },
-                    timeIntervals = {
-                        "year": {years: 1},
-                        "quarter": {months: 3},
-                        "month": {months: 1}
-                    };
+                var timeFormats = appConfig.timeFormats;
                 // console.log("New Config!");
                 // console.log(newConfig);
 
                 // if there is no change between last digest and this one.
-                if (lodash.isEqual(newConfig, oldConfig)) {
-                    console.log("No change in config for this digest.")
-                    return;
-                }
+                //if (lodash.isEqual(newConfig, oldConfig)) {
+                //    console.log("No change in config for this digest.")
+                //    return;
+                //}
 
                 // when we change the unit of time, let's convert the start/end dates gracefully.
-                if (newConfig.time != oldConfig.time) {
-                    newConfig.start[0].value = moment(oldConfig.start[0].value, timeFormats[oldConfig.time]).startOf(oldConfig.time).format(timeFormats[newConfig.time]);
-                    newConfig.end[0].value = moment(oldConfig.end[0].value, timeFormats[oldConfig.time]).endOf(oldConfig.time).format(timeFormats[newConfig.time]);
+                if (newConfig.time !== oldConfig.time) {
+                    newConfig.start = moment(oldConfig.start, timeFormats[oldConfig.time]).startOf(oldConfig.time).format(timeFormats[newConfig.time]);
+                    newConfig.end = moment(oldConfig.end, timeFormats[oldConfig.time]).endOf(oldConfig.time).format(timeFormats[newConfig.time]);
+                    $scope.activeChoices = appConfig.dateUnitChoices[newConfig.time];
                 }
 
                 if (newConfig.type != oldConfig.type) {
-                    if (newConfig.type == "map") {
+                    if (newConfig.type === "map") {
                         $scope.configOptions["Facet"].options = ["Structure", "Time"];
                         $scope.configOptions["Facet"].label = "Data Facet";
                     } else {
@@ -196,49 +195,54 @@ angular.module('app')
                 }
 
                 // if process flag is false and this isn't triggered by a submit button, ignore
-                if (!newConfig.submit) {
-                    console.log("Not updating: not process, not submit")
-                    return
-                }
+                //if (!newConfig.submit) {
+                //    console.log("Not updating: not process, not submit")
+                //    return
+                //}
 
                 /* Change in config present that will re-render visualizations */
                 /* figure out how many charts we will end up with */
-                var vizCount = countData(newConfig);
+                if (lodash.isEqual(newConfig, oldConfig)) {
+                    newConfig.vizCount = oldConfig.vizCount;
+                } else {
+                    newConfig.vizCount = countData(newConfig);
+                }
+
                 // console.log("Counting " + vizCount + " small multiples.")
 
                 // Too many charts? alert the user. if they don't want to continue, reset newConfig to oldConfig and return;
-                if (newConfig.type === "map" && vizCount > 12) {
+                if (newConfig.type === "map" && newConfig.vizCount > 12 && newConfig.submit === true) {
                     ngDialog.openConfirm({
                         template: "/templates/dataWarning.html",
                         overlay: true,
                         showClose: false,
                         appendTo: "#config > div:last-child",
                         data: {
-                            vizCount: vizCount
+                            vizCount: newConfig.vizCount
                         }
                     }).then(
                         // resolved
                         function () {
-                            console.log("Confirmed! Continuing");
-                            //digest and update
-                            console.log("running data update");
                             updateData();
                         },
                         // rejected
                         function () {
-                            console.log("Rejected! Halting processing")
                             return;
                         }
                     );
                     /* END figure out how many charts we will end up with! */
                 } else {
-                    console.log("no need to ask user for data overload");
-                    console.log("running data update");
-                    updateData();
+                    if (lodash.isEqual(newConfig, oldConfig)) {
+                        return;
+                    } else {
+                        updateData();
+                    }
                     $anchorScroll("output_container");
                 }
-
+                console.log(newConfig)
+                console.log(oldConfig)
                 // reset submit flag
                 newConfig.submit = false;
+                //debugger;
             });
         }])

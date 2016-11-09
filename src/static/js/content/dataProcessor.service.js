@@ -4,10 +4,9 @@ angular.module('app')
         data : null
     };
 
-    console.log(appConfig);
     dataProcessor.processMyTown = function(SOURCE_DATA, SOURCE_CONFIG) {
 
-        console.log("Processor parsing data - MyTown!")
+        //console.log("Processor parsing data - MyTown!")
         // console.log(SOURCE_CONFIG);
         // return SOURCE_DATA;
 
@@ -50,7 +49,6 @@ angular.module('app')
             config.time == "Year";
         }
 
-        config.start = config.start[0].value
         // start
         if (
             "start" in config // Parameter exists
@@ -64,7 +62,6 @@ angular.module('app')
             SOURCE_CONFIG.start = config.start;
         }
 
-        config.end = config.end[0].value
         // end
         if (
             "end" in config  // Parameter exists
@@ -78,7 +75,7 @@ angular.module('app')
             SOURCE_CONFIG.end = config.end;
         }
         
-        console.log(config)
+        //console.log(config)
 
         var startMoment = moment(config.start, timeFormats[config.time.toLowerCase()]).startOf(config.time),
             endMoment = moment(config.end, timeFormats[config.time.toLowerCase()]).endOf(config.time);
@@ -210,11 +207,11 @@ angular.module('app')
     }
 
     dataProcessor.processIndex = function(SOURCE_DATA, SOURCE_CONFIG) {
-        console.log("Processor parsing data!")
+        //console.log("Processor parsing data!")
         // console.log(SOURCE_CONFIG);
         // return SOURCE_DATA;
 
-        config = lodash.merge({}, SOURCE_CONFIG);
+        config = lodash.cloneDeep(SOURCE_CONFIG);
 
         config.structures = lodash.chain(config.structures)
             .map(function(o) {
@@ -222,16 +219,9 @@ angular.module('app')
             })
             .value();
 
-        var timeFormats = {
-            "year" : "YYYY",
-            "quarter" : "[Q]Q YYYY",
-            "month" : "MMM YYYY"
-        };
-        var timeIntervals = {
-            "year" : {years : 1},
-            "quarter" : {months : 3},
-            "month" : {months : 1}
-        };
+        var timeFormats = appConfig.timeFormats;
+        var timeIntervals = appConfig.intervals;
+
         const DATA_START = moment(appConfig.startData, "YYYY-MM-DD"),
             DATA_END = moment(appConfig.endData, "YYYY-MM-DD");
 
@@ -245,7 +235,7 @@ angular.module('app')
             config.time == "Year";
         }
 
-        config.start = config.start[0].value;
+        //config.start = config.start[0].value;
         // start
         if (
             "start" in config // Parameter exists
@@ -259,7 +249,7 @@ angular.module('app')
             SOURCE_CONFIG.start = config.start;
         }
 
-        config.end = config.end[0].value;
+        //config.end = config.end[0].value;
         // end
         if (
             "end" in config  // Parameter exists
@@ -319,7 +309,7 @@ angular.module('app')
             );
         }
 
-        console.log(config)
+        //console.log(config)
 
         var startMoment = moment(config.start, timeFormats[config.time.toLowerCase()]).startOf(config.time),
             endMoment = moment(config.end, timeFormats[config.time.toLowerCase()]).endOf(config.time);
@@ -417,12 +407,12 @@ angular.module('app')
 
         // account for geography as facet - backfill accordingly
         // geo is never 2nd factor
-        console.log(config.facet)
+        //console.log(config.facet)
         if (config.facet[0] == "County" || config.facet[0] == "Town") {
-            console.log("firstFactor is geo!")
+            //console.log("firstFactor is geo!")
             firstFactor = allGeos.sort(sortingFunctions[config.facet[0]]);
         } else if (config.facet[2] == "County" || config.facet[2] == "Town") {
-            console.log("thirdFactor is geo!")
+            //console.log("thirdFactor is geo!")
             thirdFactor = allGeos.sort(sortingFunctions[config.facet[0]]);
         }
 
