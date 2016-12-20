@@ -21,12 +21,12 @@ angular.module('app')
             icon : "fa fa-globe",
             active: true
         },{
-            link: "/#/",
+            link: "http://searchctbusiness.ctdata.org",
             title: "Search the Data",
             icon : "fa fa-search",
             active: true
         },{
-            link: "http://ctdata.org/tag/sots",
+            link: "http://ctdata.org/news/?tag=sots",
             title: "Data Stories",
             icon : "fa fa-book",
             active: true
