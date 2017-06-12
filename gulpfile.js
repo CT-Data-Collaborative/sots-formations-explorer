@@ -5,7 +5,7 @@ var sourcemaps = require('gulp-sourcemaps')
 var uglify = require('gulp-uglify')
 var ngAnnotate = require('gulp-ng-annotate')
 var connect = require('gulp-connect')
-
+var cachebust = require('gulp-cache-bust');
 
 
 gulp.task('js_dependencies', function() {
@@ -83,7 +83,7 @@ gulp.task('serve', ['build'], function () {
 gulp.task('build', ['js', 'js_dependencies', 'css_dependencies', 'geojsons', 'sass'], function() {
     gulp.src('src/static/images/*.*').pipe(gulp.dest('dist/images/'));
     gulp.src(['src/static/data/**/*']).pipe(gulp.dest('dist/data/'));
-    gulp.src(['src/index.html']).pipe(gulp.dest('dist/'));
+    gulp.src(['src/index.html']).pipe(cachebust({type: 'timestamp'})).pipe(gulp.dest('dist/'));
     gulp.src(['src/pages/*.html']).pipe(gulp.dest('dist/pages/'));
     gulp.src(['src/templates/*.html']).pipe(gulp.dest('dist/templates/'));
     gulp.src(['src/static/partials/**/*.html']).pipe(gulp.dest('dist/partials'));
