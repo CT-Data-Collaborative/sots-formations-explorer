@@ -9,16 +9,16 @@ and building the final app.js file
 
 There are a few basic gulp commands specified for getting started.
 
-```gulp``` will move external dependencies from the node_modules 
-directory, build/compile the angular and sass files respectively and 
-will launch the a local dev server availablne at ```localhost:4444``` 
+```gulp``` will move external dependencies from the node_modules
+directory, build/compile the angular and sass files respectively and
+will launch the a local dev server available at ```localhost:4444``` 
 or ```0.0.0.0:4444```.
 
 
 ### Data
 
-Data files should be populated in the `src/static/data` directory. Data 
-files are copied in using an external tool and should not be committed 
+Data files should be populated in the `src/static/data` directory. Data
+files are copied in using an external tool and should not be committed
 to the repo.
 
 ### Deploying

@@ -3,7 +3,9 @@ angular.module('app')
     const DATA_START = moment(appConfig.startData, "YYYY-MM-DD"),
         DATA_END = moment(appConfig.endData, "YYYY-MM-DD");
     $scope.startYear = DATA_START.year();
+    $scope.startMonth = DATA_START.format('MMMM');
     $scope.endYear = DATA_END.year();
+    $scope.endMonth = DATA_END.format('MMMM');
     var links = [
         {
             link: "/#/",
