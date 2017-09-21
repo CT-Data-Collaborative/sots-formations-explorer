@@ -1,27 +1,30 @@
 # SOTS Business Formation Activity Viewer
 
-### Getting started
+### Getting started and developing
 
-First install the local node dependencies which we need for managing serving, sass compilation
-and building the final app.js file
+This is an Angular 1.0 application, which depends on Node.js compiling files locally.
 
-```npm install``` will do the trick
+Install the dependencies for managing sass compilation, minification, building the final app.js file, and serving
+the application by running `npm install`.
 
-There are a few basic gulp commands specified for getting started.
+The application uses gulp tasks.
 
 ```gulp``` will move external dependencies from the node_modules
 directory, build/compile the angular and sass files respectively and
 will launch the a local dev server available at ```localhost:4444``` 
 or ```0.0.0.0:4444```.
 
+Review the `gulpfile.js` to see other defined tasks that can be run individually.
 
 ### Data
 
-Data files should be populated in the `src/static/data` directory. Data
-files are copied in using an external tool and should not be committed
-to the repo.
+Data for the formation portal is generated using the
+[ctdata-sots-cli](https://github.com/CT-Data-Collaborative/ctdata-sots-cli) tools.
 
-### Deploying
+
+Data files should be copied to the `src/static/data` directory and should *NOT* be committed to the repo (they are large)
+
+### Deployment
 
 If you use AWS S3 and you have the s3 CLI tools installed you can deploy
 with `aws s3 sync dist/ s3://bucket`
