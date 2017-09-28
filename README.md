@@ -26,5 +26,7 @@ Data files should be copied to the `src/static/data` directory and should *NOT* 
 
 ### Deployment
 
-If you use AWS S3 and you have the s3 CLI tools installed you can deploy
-with `aws s3 sync dist/ s3://bucket`
+1. `npm install`
+2. Copy json files into 'src/static/data'
+3. `gulp build`
+4. `aws s3 sync dist/ s3://ctbusiness.ctdata.org
