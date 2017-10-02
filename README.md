@@ -70,8 +70,8 @@ where 09_28_2017 corresponds to this month's data
 ### Deployment
 
 1. From the ctdata-sots-formations folder run `npm install` to load the node packages
-2. Run `gulp build` *
+2. Run `gulp build` <sup>1</sup>
 3. Run `aws s3 sync dist/ s3://ctbusiness.ctdata.org`
 
 
-   '* This may not work if gulp is not installed, run `npm install -g gulp` (may need sudo) to install gulp. Another reason it may not work is you do not have enough space, run `docker images` to see what you have running, determine if the larger images can be deleted, run `docker rmi [IMAGE ID]` to remove
+<sup>1</sup> This may not work if gulp is not installed, run `npm install -g gulp` (may need sudo) to install gulp. Another reason it may not work is you do not have enough space, run `docker images` to see what you have running, determine if the larger images can be deleted, run `docker rmi [IMAGE ID]` to remove
