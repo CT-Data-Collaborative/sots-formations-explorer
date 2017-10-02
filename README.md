@@ -27,31 +27,31 @@ Data files should be copied to the `src/static/data` directory and should *NOT* 
 
 1. Clone the following two repos locally:
 
-[ctdata-sots-formations-data-processing](https://github.com/CT-Data-Collaborative/ctdata-sots-formations-data-processing)
-
-[ctdata-sots-formations](https://github.com/CT-Data-Collaborative/ctdata-sots-formations)
+   [ctdata-sots-formations-data-processing](https://github.com/CT-Data-Collaborative/ctdata-sots-formations-data-processing)
+   
+   [ctdata-sots-formations](https://github.com/CT-Data-Collaborative/ctdata-sots-formations)
 
 2. Add three sub-folders to the 'ctdata-sots-formations-data-processing' folder:
  - final
  - json
  - extracts
  
-*Make sure you have the monthly_rebuilds/formations/9_2017 folders set up before you launch these commands* where 9_2017 corresponds to this month's data
+    *Make sure you have the monthly_rebuilds/formations/9_2017 folders set up before you launch these commands* 
+     where 9_2017 corresponds to this month's data
 
 ### Data Processing
 
 1. cd to 'monthly_rebuilds', run following commands:
 
-```sots extract_formations --dbhost 0.0.0.0 --dbport 5432 --dbuser sots --dbpass [password] -q Address -o formations/9_2017/addresses.csv```
+   ```sots extract_formations --dbhost 0.0.0.0 --dbport 5432 --dbuser sots --dbpass [password] -q Address -o formations/9_2017/addresses.csv```
 
-```sots extract_formations --dbhost 0.0.0.0 --dbport 5432 --dbuser sots --dbpass [password] -q Formations -o formations/9_2017/formations.csv```
+   ```sots extract_formations --dbhost 0.0.0.0 --dbport 5432 --dbuser sots --dbpass [password] -q Formations -o formations/9_2017/formations.csv```
 
 2. copy the addresses.csv and formations.csv files into the 
 'ctdata-sots-formations-data-processing/extracts/09_28_2017' folder
 
-*Make sure you have these sub-folders set up* 
-
-'ctdata-sots-formations-data-processing/final/09_28_2017/types' where 09_28_2017 corresponds to this month's data
+    *Make sure you have ctdata-sots-formations-data-processing/final/09_28_2017/types these set up before you launch these commands* 
+where 09_28_2017 corresponds to this month's data
 
 3. Open the Rproj from the 'ctdata-sots-formations-data-processing' folder
 
@@ -61,7 +61,7 @@ Data files should be copied to the `src/static/data` directory and should *NOT* 
 
 6. Run the python command to convert the csvs to jsons from the 'ctdata-sots-formations-data-processing' folder
 
-```python2 convert_to_json.py -i final/09_28_2017/types -o json/09_28_2017/ -c```
+   ```python2 convert_to_json.py -i final/09_28_2017/types -o json/09_28_2017/ -c```
 
 7. Create a `data` subfolder in the src/static folder
 
@@ -74,4 +74,4 @@ Data files should be copied to the `src/static/data` directory and should *NOT* 
 3. Run `aws s3 sync dist/ s3://ctbusiness.ctdata.org`
 
 
-* This may not work if gulp is not installed, run `npm install -g gulp` (may need sudo) to install gulp. Another reason it may not work is you do not have enough space, run `docker images` to see what you have running, determine if the larger images can be deleted, run `docker rmi [IMAGE ID]` to remove
+   '* This may not work if gulp is not installed, run `npm install -g gulp` (may need sudo) to install gulp. Another reason it may not work is you do not have enough space, run `docker images` to see what you have running, determine if the larger images can be deleted, run `docker rmi [IMAGE ID]` to remove
