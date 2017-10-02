@@ -32,9 +32,9 @@ Data files should be copied to the `src/static/data` directory and should *NOT* 
    [ctdata-sots-formations](https://github.com/CT-Data-Collaborative/ctdata-sots-formations)
 
 2. Add three sub-folders to the 'ctdata-sots-formations-data-processing' folder:
- - final
- - json
- - extracts
+   - final
+   - json
+   - extracts
  
     *Make sure you have the monthly_rebuilds/formations/9_2017 folders set up before you launch these commands* 
      where 9_2017 corresponds to this month's data
