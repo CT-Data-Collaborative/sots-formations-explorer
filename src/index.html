@@ -15,7 +15,7 @@
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="css/ui-bootstrap-csp.css">
-        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="css/angular-loading.css"/>
         <link rel="stylesheet" type="text/css" href="css/project.css">
         <link rel="stylesheet" type="text/css" href="css/isteven-multi-select.css">
@@ -56,19 +56,17 @@
             <!-- /.overlay -->
             <div class="navbar-brand .pull-xs-left">
                 <div class="logo">
-                    <!-- <a href="http://ctdata.org"> --><img src="/images/logo.svg"><!-- </a> -->
+                    <img src="/images/logo.svg">
                 </div>
             </div>
             <div class="navbar-toggleable-sm collapse" id="collapseableNavbar">
-                <ul class="nav navbar-nav pull-xs-right offset-md-right-2">
+                <ul class="nav navbar-nav pull-xs-right offset-md-right-2" style="margin-top: 7px; margin-left: 20px;">
                     <!-- /.nav-item -->
                     <li class="nav-item" ng-repeat="link in navLinks | filter:link.active"><a ng-href="{{ link.link }}">{{ link.title }}</a></li>
                     <li class="nav-item"><a href="http://ctdata.org">CTData Home</a></li>
                 </ul>
             </div>
-            <button class="navbar-toggler hidden-md-up top-right" type="button" data-toggle="collapse" data-target="#collapseableNavbar">
-            menu
-            </button>
+            <button class="navbar-toggler hidden-md-up top-right" type="button" data-toggle="collapse" data-target="#collapseableNavbar">Menu</button>
         </nav>
         <div class="hero" ng-if="isRoot">
             <div class="jumbo-image">
@@ -89,8 +87,11 @@
                     </div>
                 </div>
                 <div class="copyright">
-                    <div >
-                        <p>CTData.org is a Project of the Connecticut Data Collaborative. Copyright <i class="fa fa-copyright fa-inverse"></i> 2016 CT Data Collaborative</p>
+                    <div>
+                        <p>
+                          Connecticut Data Collaborative is a Project of InformCT, Inc. <br>
+                          Copyright &copy; 2015—2018 Connecticut Data Collaborative
+                        </p>
                     </div>
                 </div>
             </div>

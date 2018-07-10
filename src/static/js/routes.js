@@ -14,6 +14,11 @@ angular.module("app")
             controller: "FormationsOverTimeController",
             controllerAs: "ContentController"
         })
+        .when("/starts-and-stops", {
+            templateUrl: "pages/starts-and-stops.html",
+            controller: "",
+            controllerAs: "ContentController"
+        })
         .otherwise({
             redirectTo: "/"
         })

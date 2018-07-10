@@ -15,12 +15,17 @@ angular.module('app')
         },{
             link: "/#/formations-over-time",
             title: "Formations Over Time",
-            icon : "fa fa-line-chart",
+            icon : "fas fa-chart-line",
             active: true
         },{
             link: "/#/compare-towns",
             title: "Compare Towns",
-            icon : "fa fa-globe",
+            icon : "fas fa-balance-scale",
+            active: true
+        },{
+            link: "/#/starts-and-stops",
+            title: "Starts & Stops",
+            icon : "fa fa-hourglass-start",
             active: true
         },{
             link: "http://searchctbusiness.ctdata.org",
@@ -28,7 +33,7 @@ angular.module('app')
             icon : "fa fa-search",
             active: true
         },{
-            link: "http://ctdata.org/news/?tag=sots",
+            link: "http://ctdata.org/blog/",
             title: "Data Stories",
             icon : "fa fa-book",
             active: true

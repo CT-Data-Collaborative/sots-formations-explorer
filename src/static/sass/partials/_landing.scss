@@ -3,6 +3,24 @@ h1 {
     font-weight: $heavy;
     color: $ctdata-extra-dark-blue;
 }
+
+.bluebar {
+  border: 1px solid grey;
+  border-left: 10px solid $ctdata-extra-dark-blue;
+  box-shadow: 2px 4px $dark-grey;
+  width: 100%;
+  min-height: 200px;
+  padding: 15px;
+}
+
+.bluebar a img {
+  float: left;
+  margin: 0;
+  margin-right: 25px;
+  height: 150px;
+}
+
+
 div.path {
     padding: 0.5rem 1rem;
 
@@ -23,7 +41,7 @@ div.path {
         /*border-radius: 0.25rem;*/
         /*border-left: 2rem solid $ctdata-extra-dark-blue;*/
         padding: 0.5rem;
-        
+
         /* Box shadow */
         box-shadow: 0.1rem 0.1rem 0.1rem 1px $dark-grey;
         -webkit-box-shadow: 0.1rem 0.1rem 0.1rem 1px $dark-grey;
