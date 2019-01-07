@@ -20,8 +20,8 @@ angular.module('app')
             );
 
             const DATA_START = moment(appConfig.startData, "YYYY-MM-DD"),
-                DATA_END = moment(appConfig.endDate, "YYYY-MM-DD");
-            console.log(DATA_START);
+                  DATA_END = moment(appConfig.endData, "YYYY-MM-DD");
+            //console.log(DATA_START);
             $scope.collapsed = {
                 "metadata" : true
             };
