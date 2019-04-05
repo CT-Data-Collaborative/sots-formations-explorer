@@ -29,7 +29,7 @@ angular.module('app')
             active: true
         },{
             link: "http://searchctbusiness.ctdata.org",
-            title: "Search the Data",
+            title: "Search Business Data",
             icon : "fa fa-search",
             active: true
         },{
