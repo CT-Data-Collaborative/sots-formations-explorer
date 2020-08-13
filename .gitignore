@@ -9,3 +9,4 @@ node_modules/
 /src/static/data/*.*
 /src/static/data/
 /src/static/data
+.Rproj.user

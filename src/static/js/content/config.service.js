@@ -2,7 +2,7 @@ angular.module('app')
     .service('appConfig', ['$q', '$http', 'lodash', function($q, $http, lodash) {
         settings = {
             'startData': '1980-01-01',
-            'endData': '2019-12-31',
+            'endData': '2020-07-31',
             'structureOrder': [
                 "All Business Entities",
                 "LLC (CT)",
